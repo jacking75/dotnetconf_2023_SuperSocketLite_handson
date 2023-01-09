@@ -7,7 +7,7 @@ namespace MOServer;
 public class UserManager
 {
     int MaxUserCount;
-   UInt64 UserSequenceNumber = 0;
+    UInt64 UserSequenceNumber = 0;
 
     Dictionary<string, User> UserMap = new Dictionary<string, User>();
 

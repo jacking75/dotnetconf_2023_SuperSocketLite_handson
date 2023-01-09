@@ -20,7 +20,7 @@ public class MainServer : AppServer<ClientSession, PktBinaryRequestInfo>
     SuperSocket.SocketBase.Config.IServerConfig m_Config;
 
     PacketProcessor MainPacketProcessor = new PacketProcessor();
-    RoomManager RoomMgr = new RoomManager();
+    //RoomManager RoomMgr = new RoomManager();
     
     
     public MainServer()

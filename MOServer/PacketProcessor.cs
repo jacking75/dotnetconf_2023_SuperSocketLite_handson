@@ -23,7 +23,7 @@ class PacketProcessor
 
     UserManager UserMgr = new();
 
-    List<Room> RoomList = new List<Room>();
+    List<Room> RoomList;
 
     Dictionary<int, Action<PktBinaryRequestInfo>> PacketHandlerMap = new();
     PKHCommon CommonPacketHandler = new PKHCommon();

@@ -13,9 +13,7 @@ namespace EchoServer
     class MainServer : AppServer<NetworkSession, PktBinaryRequestInfo>
     {
         public static SuperSocket.SocketBase.Logging.ILog MainLogger;
-                
-        IServerConfig m_Config;
-
+                        
         public MainServer()
             : base(new DefaultReceiveFilterFactory<ReceiveFilter, PktBinaryRequestInfo>())
         {
@@ -23,25 +21,21 @@ namespace EchoServer
             SessionClosed += new SessionHandler<NetworkSession, CloseReason>(OnClosed);
             NewRequestReceived += new RequestHandler<NetworkSession, PktBinaryRequestInfo>(RequestReceived);
         }
-
                 
-        public void InitConfig(ServerOption option)
-        {
-            m_Config = new ServerConfig
-            {
-                Port = option.Port,
-                Ip = "Any",
-                MaxConnectionNumber = option.MaxConnectionNumber,
-                Mode = SocketMode.Tcp,
-                Name = option.Name
-            };
-        }
-
         public void CreateServer()
         {
             try
             {
-                bool bResult = Setup(new RootConfig(), m_Config, logFactory: new ConsoleLogFactory());
+                var config = new ServerConfig
+                {
+                    Port = 32452,
+                    Ip = "Any",
+                    MaxConnectionNumber = 100,
+                    Mode = SocketMode.Tcp,
+                    Name = "Echo Server"
+                };
+
+                bool bResult = Setup(new RootConfig(), config, logFactory: new ConsoleLogFactory());
 
                 if (bResult == false)
                 {
