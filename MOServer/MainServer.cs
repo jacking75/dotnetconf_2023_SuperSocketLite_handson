@@ -20,7 +20,7 @@ public class MainServer : AppServer<ClientSession, PktBinaryRequestInfo>
     SuperSocket.SocketBase.Config.IServerConfig m_Config;
 
     PacketProcessor MainPacketProcessor = new PacketProcessor();
-    //RoomManager RoomMgr = new RoomManager();
+    
     
     
     public MainServer()
@@ -87,12 +87,12 @@ public class MainServer : AppServer<ClientSession, PktBinaryRequestInfo>
     public ERROR_CODE CreateComponent()
     {
         Room.NetSendFunc = this.SendData;
-        RoomMgr.CreateRooms();
+        
 
         MainPacketProcessor = new PacketProcessor();
         MainPacketProcessor.NetSendFunc = this.SendData;
         MainPacketProcessor.DistributePacket = this.Distribute;
-        MainPacketProcessor.CreateAndStart(RoomMgr.GetRoomsList());
+        MainPacketProcessor.CreateAndStart();
 
         MainLogger.Info("CreateComponent - Success");
         return ERROR_CODE.NONE;

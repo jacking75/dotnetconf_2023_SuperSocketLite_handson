@@ -1,0 +1,1 @@
+dotnet net7.0\MoServer.dll

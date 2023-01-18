@@ -21,21 +21,23 @@ class PacketProcessor
 
     BufferBlock<PktBinaryRequestInfo> MsgBuffer = new();
 
+    RoomManager RoomMgr = new RoomManager();
+        
     UserManager UserMgr = new();
-
-    List<Room> RoomList;
-
+        
     Dictionary<int, Action<PktBinaryRequestInfo>> PacketHandlerMap = new();
     PKHCommon CommonPacketHandler = new PKHCommon();
     PKHRoom RoomPacketHandler = new PKHRoom();
             
 
-    public void CreateAndStart(List<Room> roomList)
+    public void CreateAndStart()
     {
+        Room.NetSendFunc = this.NetSendFunc;
+
+        RoomMgr.CreateRooms();
+
         UserMgr.Init(MainServer.Conf_MaxUserCount);
 
-        RoomList = roomList;
-            
         RegistPacketHandler();
 
         IsThreadRunning = true;
@@ -64,7 +66,7 @@ class PacketProcessor
         CommonPacketHandler.RegistPacketHandler(PacketHandlerMap);                
         
         RoomPacketHandler.Init(UserMgr);
-        RoomPacketHandler.SetRooomList(RoomList);
+        RoomPacketHandler.SetRooomList(RoomMgr.GetRoomsList());
         RoomPacketHandler.RegistPacketHandler(PacketHandlerMap);
     }
 
